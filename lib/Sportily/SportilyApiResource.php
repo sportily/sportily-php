@@ -1,37 +1,33 @@
 <?php
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
-
 abstract class SportilyApiResource {
 
-    private static $client = null;
-
-    private static function client() {
-        if (!self::$client) {
-            self::$client = new Client([ 'base_url' => Sportily::getBaseUrl() ]);
-        }
+    public static function all($query = []) {
+        return SportilyRequester::get(self::collectionUrl(), $query);
     }
 
-    protected static function get($url) {
-        return self::request('get', $url, []);
+    public static function retrieve($id) {
+        return SportilyRequester::get(self::resourceUrl($id));
     }
 
-    protected static function request($method, $url, $payload) {
-        $query = isset($payload['query']) ? $payload['query'] : [];
-        $query['access_token'] = Sportily::getAccessToken();
-
-        $payload['query'] = $query;
-
-        $request = self::client()->createRequest($method, $url, $payload);
-        $response = null;
-
-        try {
-            $response = self::client()->send($request)->json();
-        } catch (ClientException $e) {
-            $response = $e->getResponse()->json();
-        }
-
-        return $response;
+    public static function create($data) {
+        return SportilyRequester::post(self::collectionUrl(), $data);
     }
+
+    public static function update($id, $data) {
+        return SportilyRequester::put(self::resourceUrl($id), $data);
+    }
+
+    public static function delete($id) {
+        return SportilyRequester::delete(self::resourceUrl($id));
+    }
+
+    protected static function collectionUrl() {
+        return '/' . static::$class_url;
+    }
+
+    protected static function resourceUrl($id) {
+        return self::collectionUrl() . '/' . $id;
+    }
+
 }

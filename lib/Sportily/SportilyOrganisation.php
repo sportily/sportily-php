@@ -2,8 +2,6 @@
 
 abstract class SportilyOrganisation extends SportilyApiResource {
 
-    public function all() {
-        return self::get('organisations');
-    }
+    public static $class_url = 'organisations';
 
 }
