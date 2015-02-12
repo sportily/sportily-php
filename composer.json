@@ -3,7 +3,7 @@
     "description": "Sportily PHP Library",
     "license": "MIT",
     "require": {
-        "php": ">=5.2",
+        "php": ">=5.3",
         "guzzlehttp/guzzle": "~5.0"
     },
     "autoload": {
