@@ -1,0 +1,12 @@
+{
+    "name": "sportily/sportily-php",
+    "description": "Sportily PHP Library",
+    "license": "MIT",
+    "require": {
+        "php": ">=5.2",
+        "guzzlehttp/guzzle": "~5.0"
+    },
+    "autoload": {
+        "classmap": [ "lib/Sportily/" ]
+    }
+}
