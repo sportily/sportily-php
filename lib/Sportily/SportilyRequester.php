@@ -24,7 +24,7 @@ abstract class SportilyRequester {
      */
     private static function client() {
         if (self::$client == null) {
-            self::$client = new Client([ 'base_url' => Sportily::$baseUrl() ]);
+            self::$client = new Client([ 'base_url' => SportilyApi::$base_url ]);
         }
 
         return self::$client;
@@ -89,7 +89,7 @@ abstract class SportilyRequester {
     public static function request($method, $url, $payload) {
         # ensure the access token is present
         $query = isset($payload['query']) ? $payload['query'] : [];
-        $query['access_token'] = Sportily::getAccessToken();
+        $query['access_token'] = SportilyApi::getAccessToken();
         $payload['query'] = $query;
 
         # create the request

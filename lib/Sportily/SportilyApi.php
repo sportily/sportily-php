@@ -64,6 +64,17 @@ abstract class SportilyApi {
     }
 
     /**
+     * Specifies the client id and secret to use when requesting access tokens.
+     *
+     * @param string $client_id the publishable client identifier
+     * @param string $client_secret the secret client key
+     */
+    public static function setApiKeys($client_id, $client_secret) {
+        self::$client_id = $client_id;
+        self::$client_secret = $client_secret;
+    }
+
+    /**
      * Request a new access token from the OAuth service. Either by exchanging
      * an auth code obtained through the user the regular authorization flow,
      * or by simply asking for an application-wide token.
@@ -79,7 +90,8 @@ abstract class SportilyApi {
             'code' => $auth_code,
             'grant_type' => $grant_type,
             'client_id' => self::$client_id,
-            'client_secret' => self::$client_secret
+            'client_secret' => self::$client_secret,
+            'redirect_uri' => 'http://localhost:9000/callback'
         ]);
 
         return $response['access_token'];
