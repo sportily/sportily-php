@@ -39,6 +39,14 @@ abstract class SportilyApi {
     public static $client_secret;
 
     /**
+     * The redirect URL where the user we be sent to (with an auth code) once
+     * they have completed the OAuth login flow.
+     *
+     * @var string
+     */
+    public static $redirect_url;
+
+    /**
      * Returns the current access token, or - if no access token has been
      * provided - makes a request to the OAuth service to get an access token
      * on behalf of the client.
@@ -48,7 +56,7 @@ abstract class SportilyApi {
     public static function getAccessToken() {
         if (self::$access_token === null) {
             self::$access_token = '';
-            self::$access_token = self::token();
+            self::$access_token = SportilyOAuth::token();
         }
 
         return self::$access_token;
@@ -75,36 +83,13 @@ abstract class SportilyApi {
     }
 
     /**
-     * Request a new access token from the OAuth service. Either by exchanging
-     * an auth code obtained through the user the regular authorization flow,
-     * or by simply asking for an application-wide token.
+     * Specifies the redirect URL where the user we be sent to (with an auth
+     * code) once they have completed the OAuth login flow.
      *
-     * @param string $auth_code an auth code to exchange for an access token
-     *
-     * @return string a valid access token
+     * @param string $redirect_url the redirect url
      */
-    public static function token($auth_code = null) {
-        $grant_type = $auth_code ? 'authorization_code' : 'client_credentials';
-
-        $response = SportilyRequester::post('oauth/token', [
-            'code' => $auth_code,
-            'grant_type' => $grant_type,
-            'client_id' => self::$client_id,
-            'client_secret' => self::$client_secret,
-            'redirect_uri' => 'http://localhost:9000/callback'
-        ]);
-
-        return $response['access_token'];
-    }
-
-    /**
-     * Retrieve the profile of the currently authenticated user. This request
-     * will fail when using a client-credentials token.
-     *
-     * @return array details of the user's profile
-     */
-    public static function profile() {
-        return SportilyRequester::get('profile');
+    public static function setRedirectUrl($redirect_url) {
+        self::$redirect_url = $redirect_url;
     }
 
 }
