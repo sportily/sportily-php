@@ -87,10 +87,9 @@ abstract class SportilyRequester {
      * @return array the raw JSON response
      */
     public static function request($method, $url, $payload) {
-        # ensure the access token is present
-        $query = isset($payload['query']) ? $payload['query'] : [];
-        $query['access_token'] = SportilyApi::getAccessToken();
-        $payload['query'] = $query;
+        # ensure the access token is present in the headers.
+        $token = SportilyApi::getAccessToken();
+        $payload['headers'] = [ 'Authorization' => 'Bearer ' . $token ];
 
         # create the request
         $request = self::client()->createRequest($method, $url, $payload);
