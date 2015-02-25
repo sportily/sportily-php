@@ -101,7 +101,7 @@ abstract class SportilyRequester {
 
         } catch (ClientException $e) {
             # pull the details out of 40x responses.
-            $response = $e->getResponse()->json();
+            throw new Exception(json_encode($e->getResponse()->json()));
         }
 
         return $response;
