@@ -47,6 +47,15 @@ abstract class SportilyApi {
     public static $redirect_url;
 
     /**
+     * Specifies the base URL to use.
+     *
+     * @param string $base_url the base URL to use
+     */
+    public static function setBaseUrl($base_url) {
+        self::$base_url = $base_url;
+    }
+
+    /**
      * Returns the current access token, or - if no access token has been
      * provided - makes a request to the OAuth service to get an access token
      * on behalf of the client.
