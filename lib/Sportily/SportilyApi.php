@@ -11,7 +11,7 @@ abstract class SportilyApi {
      *
      * @var string
      */
-    public static $base_url = 'http://localhost:8000';
+    public static $base_url;
 
     /**
      * The access token that should be sent along with each request. If not
