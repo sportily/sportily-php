@@ -1,7 +1,5 @@
 <?php
-namespace Sportily\Resources;
-
-use Sportily\Requester;
+namespace Sportily;
 
 abstract class Resource {
 

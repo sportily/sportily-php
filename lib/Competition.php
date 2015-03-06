@@ -1,5 +1,5 @@
 <?php
-namespace Sportily\Resources;
+namespace Sportily;
 
 abstract class Competition extends Resource {
 
