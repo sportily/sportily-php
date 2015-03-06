@@ -1,4 +1,5 @@
 <?php
+namespace Sportily\Api;
 
 /**
  * The core class for accessing core parts of the API and setting access tokens

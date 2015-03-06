@@ -1,4 +1,5 @@
 <?php
+namespace Sportily\Api;
 
 abstract class SportilyCompetition extends SportilyApiResource {
 

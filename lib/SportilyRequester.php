@@ -1,4 +1,5 @@
 <?php
+namespace Sportily\Api;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
@@ -101,7 +102,7 @@ abstract class SportilyRequester {
 
         } catch (ClientException $e) {
             # pull the details out of 40x responses.
-            throw new Exception(json_encode($e->getResponse()->json()));
+            throw new \Exception(json_encode($e->getResponse()->json()));
         }
 
         return $response;
