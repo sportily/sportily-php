@@ -1,5 +1,5 @@
 <?php
-namespace Sportily\Api;
+namespace Sportily;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
@@ -8,7 +8,7 @@ use GuzzleHttp\Exception\ClientException;
  * Handles the details of actually makeing requests to the API, making sure
  * that the access token is including automatically.
  */
-abstract class SportilyRequester {
+abstract class Requester {
 
     /**
      * The raw guzzle http client instance.
@@ -25,7 +25,7 @@ abstract class SportilyRequester {
      */
     private static function client() {
         if (self::$client == null) {
-            self::$client = new Client([ 'base_url' => SportilyApi::$base_url ]);
+            self::$client = new Client([ 'base_url' => Api::$base_url ]);
         }
 
         return self::$client;
@@ -89,7 +89,7 @@ abstract class SportilyRequester {
      */
     public static function request($method, $url, $payload) {
         # ensure the access token is present in the headers.
-        $token = SportilyApi::getAccessToken();
+        $token = Api::getAccessToken();
         $payload['headers'] = [ 'Authorization' => 'Bearer ' . $token ];
 
         # create the request

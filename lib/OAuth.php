@@ -1,7 +1,7 @@
 <?php
-namespace Sportily\Api;
+namespace Sportily;
 
-abstract class SportilyOAuth {
+abstract class OAuth {
 
     /**
      * Request a new access token from the OAuth service. Either by exchanging
@@ -17,19 +17,19 @@ abstract class SportilyOAuth {
 
         $payload = [
             'grant_type' => $grant_type,
-            'client_id' => SportilyApi::$client_id,
-            'client_secret' => SportilyApi::$client_secret
+            'client_id' => Api::$client_id,
+            'client_secret' => Api::$client_secret
         ];
 
         if ($auth_code) {
             $payload['grant_type'] = 'authorization_code';
             $payload['code'] = $auth_code;
-            $payload['redirect_uri'] = SportilyApi::$redirect_url;
+            $payload['redirect_uri'] = Api::$redirect_url;
         } else {
             $payload['grant_type'] = 'client_credentials';
         }
 
-        $response = SportilyRequester::post('oauth/token', $payload);
+        $response = Requester::post('oauth/token', $payload);
         return $response['access_token'];
     }
 
@@ -40,9 +40,9 @@ abstract class SportilyOAuth {
      * @return string the url to send the user to
      */
     public static function url() {
-        return SportilyApi::$base_url . '/oauth/authorize?response_type=code'
-            . '&client_id=' . SportilyApi::$client_id
-            . '&redirect_uri=' . SportilyApi::$redirect_url;
+        return Api::$base_url . '/oauth/authorize?response_type=code'
+            . '&client_id=' . Api::$client_id
+            . '&redirect_uri=' . Api::$redirect_url;
     }
 
 }

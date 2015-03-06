@@ -1,11 +1,11 @@
 <?php
-namespace Sportily\Api;
+namespace Sportily;
 
 /**
  * The core class for accessing core parts of the API and setting access tokens
  * and API secrets.
  */
-abstract class SportilyApi {
+abstract class Api {
 
     /**
      * The base URL of the API. Can be overridden if necessary.

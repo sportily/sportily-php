@@ -1,7 +1,9 @@
 <?php
-namespace Sportily\Api;
+namespace Sportily\Resources;
 
-abstract class SportilyProfile {
+use Sportily\Requester;
+
+abstract class Profile {
 
     /**
      * Retrieve the profile of the currently authenticated user. This request
@@ -10,7 +12,7 @@ abstract class SportilyProfile {
      * @return array details of the user's profile
      */
     public static function retrieve() {
-        return SportilyRequester::get('profile');
+        return Requester::get('profile');
     }
 
 }
