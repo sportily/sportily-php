@@ -102,9 +102,29 @@ abstract class Requester {
 
         } catch (ClientException $e) {
             # pull the details out of 40x responses.
-            throw new \Exception(json_encode($e->getResponse()->json()));
+            $this->processClientException($e);
         }
 
         return $response;
+    }
+
+    /**
+     * Inspect the provided Guzzle ClientException, and transform it into an
+     * appropriate Sportily Error.
+     *
+     * @param GuzzleHttp\Exception\ClientException $e the client exception to inspect
+     */
+    private static function processClientException($e) {
+        $json = $e->getResponse()->json();
+
+        switch ($json->error) {
+
+            case 'invalid_data':
+                throw new Error\Validation($json->error_description, $json->validation_messages);
+
+            default:
+                throw new Error\Base(json_encode($json));
+
+        }
     }
 }
