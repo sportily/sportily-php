@@ -102,7 +102,7 @@ abstract class Requester {
 
         } catch (ClientException $e) {
             # pull the details out of 40x responses.
-            $this->processClientException($e);
+            self::processClientException($e);
         }
 
         return $response;
