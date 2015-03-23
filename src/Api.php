@@ -64,11 +64,6 @@ abstract class Api {
      * @return string an access token
      */
     public static function getAccessToken() {
-        if (self::$access_token === null) {
-            self::$access_token = '';
-            self::$access_token = OAuth::token();
-        }
-
         return self::$access_token;
     }
 
