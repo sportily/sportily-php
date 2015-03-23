@@ -29,8 +29,7 @@ abstract class OAuth {
             $payload['grant_type'] = 'client_credentials';
         }
 
-        $response = Requester::post('oauth/token', $payload);
-        return $response['access_token'];
+        return Requester::post('oauth/token', $payload);
     }
 
     /**
