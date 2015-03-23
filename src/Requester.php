@@ -117,10 +117,10 @@ abstract class Requester {
     private static function processClientException($e) {
         $json = $e->getResponse()->json();
 
-        switch ($json->error) {
+        switch ($json['error']) {
 
             case 'invalid_data':
-                throw new Error\Validation($json->error_description, $json->validation_messages);
+                throw new Error\Validation($json['error_description'], $json['validation_messages']);
 
             default:
                 throw new Error\Base(json_encode($json));
