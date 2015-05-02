@@ -94,7 +94,7 @@ abstract class Requester {
 
         # create the request
         $request = self::client()->createRequest($method, $url, $payload);
-        $response = self::client()->send($request)
+        $response = self::client()->send($request);
 
         return new Response($response);
     }
