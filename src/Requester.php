@@ -2,7 +2,6 @@
 namespace Sportily;
 
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ClientException;
 
 /**
  * Handles the details of actually makeing requests to the API, making sure
@@ -91,40 +90,12 @@ abstract class Requester {
         # ensure the access token is present in the headers.
         $token = Api::getAccessToken();
         $payload['headers'] = [ 'Authorization' => 'Bearer ' . $token ];
+        $payload['future'] = true;
 
         # create the request
         $request = self::client()->createRequest($method, $url, $payload);
-        $response = null;
+        $response = self::client()->send($request)
 
-        try {
-            # perform the request.
-            $response = self::client()->send($request)->json();
-
-        } catch (ClientException $e) {
-            # pull the details out of 40x responses.
-            self::processClientException($e);
-        }
-
-        return $response;
-    }
-
-    /**
-     * Inspect the provided Guzzle ClientException, and transform it into an
-     * appropriate Sportily Error.
-     *
-     * @param GuzzleHttp\Exception\ClientException $e the client exception to inspect
-     */
-    private static function processClientException($e) {
-        $json = $e->getResponse()->json();
-
-        switch ($json['error']) {
-
-            case 'invalid_data':
-                throw new Error\Validation($json['error_description'], $json['validation_messages']);
-
-            default:
-                throw new Error\Base(json_encode($json));
-
-        }
+        return new Response($response);
     }
 }
