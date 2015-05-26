@@ -1,9 +1,11 @@
 <?php
 namespace Sportily;
 
+use ArrayAccess;
 use GuzzleHttp\Exception\ClientException;
+use JsonSerializable;
 
-class Response implements \ArrayAccess {
+class Response implements ArrayAccess, JsonSerializable {
 
     private $response = null;
 
@@ -64,6 +66,11 @@ class Response implements \ArrayAccess {
 
     public function offsetUnset($offset) {
         // not supported
+    }
+
+    public function jsonSerialize() {
+        $this->process();
+        return $this->json;
     }
 
     /**
