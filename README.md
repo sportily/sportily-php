@@ -1,1 +1,1 @@
-# Sportily PHP Bindings
+# PHP Bindings for Sportily API
