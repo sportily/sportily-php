@@ -7,8 +7,8 @@ abstract class Resource {
         return Requester::get(self::collectionUrl(), $query);
     }
 
-    public static function retrieve($id) {
-        return Requester::get(self::resourceUrl($id));
+    public static function retrieve($id, $query = []) {
+        return Requester::get(self::resourceUrl($id), $query);
     }
 
     public static function create($data) {
