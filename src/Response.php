@@ -70,7 +70,14 @@ class Response implements ArrayAccess, JsonSerializable {
 
     public function jsonSerialize() {
         $this->process();
-        return $this->json;
+
+        if (isset($this->json['data'])) {
+            $this->generateLookup();
+        }
+
+        return array_merge($this->json, [
+            'lookup' => $this->lookup
+        ]);
     }
 
     /**
