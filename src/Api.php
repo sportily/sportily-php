@@ -15,6 +15,13 @@ abstract class Api {
     public static $base_url;
 
     /**
+     * The oauth base URL of the API. Can be overridden if necessary.
+     *
+     * @var string
+     */
+    public static $oauth_base_url;
+
+    /**
      * The access token that should be sent along with each request. If not
      * provided, when a call is made the client will automatically request an
      * access token using the client credentials
@@ -54,6 +61,15 @@ abstract class Api {
      */
     public static function setBaseUrl($base_url) {
         self::$base_url = $base_url;
+    }
+
+    /**
+     * Specifies the oauth base URL to use.
+     *
+     * @param string $oauth_base_url the base URL to use
+     */
+    public static function setOauthBaseUrl($oauth_base_url) {
+        self::$oauth_base_url = $oauth_base_url;
     }
 
     /**
