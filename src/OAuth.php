@@ -59,7 +59,7 @@ abstract class OAuth {
      * @return string the url to send the user to
      */
     public static function url() {
-        return Api::$outh_base_url . '/oauth/authorize?response_type=code'
+        return Api::$base_url . '/oauth/authorize?response_type=code'
             . '&client_id=' . Api::$client_id
             . '&redirect_uri=' . Api::$redirect_url;
     }
